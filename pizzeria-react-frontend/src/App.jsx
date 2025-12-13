@@ -13,7 +13,8 @@ import IniciarSesionPage from "./components/pages/IniciarSesionPage";
 import PedirAhoraPage from "./components/pages/PedirAhoraPage";
 import RegistrateAqui from "./components/pages/RegistrateAqui";
 import CarritoPage from "./components/pages/CarritoPage";
-
+import CDashboard from "./components/pages/CDashboard";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
 
 // APP PRINCIPAL
 function App() {
@@ -31,7 +32,8 @@ function App() {
           <Route path="/iniciar-sesion" element={<IniciarSesionPage />} />
           <Route path="/registrate-aqui" element={<RegistrateAqui />} />
           <Route path="/pedir-ahora" element={<PedirAhoraPage />} />
-          <Route path="/carrito" element={<CarritoPage />}/>
+          <Route path="/carrito" element={<CarritoPage />} />
+          <Route path="/cdashboard" element={ <ProtectedRoute><CDashboard /></ProtectedRoute>} />
         </Routes>
       </div>
     </div>

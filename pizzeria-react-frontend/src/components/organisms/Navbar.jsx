@@ -52,7 +52,7 @@ function Navbar() {
 
       {/* LOGO — izquierda */}
       <Link to="/" className="flex items-center gap-3">
-        <div className="w-[60px] h-[60px] bg-white rounded-full flex items-center justify-center border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden transition-transform duration-300 hover:scale-105">
+        <div className="w-15 h-15 bg-white rounded-full flex items-center justify-center border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden transition-transform duration-300 hover:scale-105">
           <img
             src="/imgs/logo.png"
             alt="logo"
@@ -191,7 +191,7 @@ function Navbar() {
 
             {/* Logo */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-[55px] h-[55px] bg-white rounded-full flex items-center justify-center border-4 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] overflow-hidden">
+              <div className="w-13.75 h-13.75 bg-white rounded-full flex items-center justify-center border-4 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] overflow-hidden">
                 <img
                   src="/imgs/logo.png"
                   alt="logo"
@@ -236,7 +236,7 @@ function Navbar() {
       )}
 
       {/* Línea decorativa */}
-      <div className="absolute bottom-0 left-0 w-full h-[3px] bg-black"></div>
+      <div className="absolute bottom-0 left-0 w-full h-0.75 bg-black"></div>
     </nav>
   );
 }
