@@ -4,11 +4,6 @@ import Footer from "../organisms/Footer";
 import {
   FaEnvelope,
   FaLock,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
   FaExclamationTriangle,
 } from "react-icons/fa";
 
