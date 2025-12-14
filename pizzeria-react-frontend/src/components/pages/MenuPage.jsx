@@ -18,7 +18,7 @@ function MenuPage() {
   const [loading, setLoading] = useState(true);
 
   const [openCategorias, setOpenCategorias] = useState(false);
-  const [, setOpenInfo] = useState(false); // ✅ ERROR CORREGIDO
+  const [openInfo, setOpenInfo] = useState(null); // Pizza seleccionada para Info
   const [openAgregar, setOpenAgregar] = useState(false);
   const [openCarrito, setOpenCarrito] = useState(false);
 
@@ -39,11 +39,8 @@ function MenuPage() {
   }, []);
 
   const filtrarProductos = productos.filter((p) => {
-    const catOk =
-      activeCategory === "Todas" || p.categoria === activeCategory;
-    const searchOk = p.nombre
-      .toLowerCase()
-      .includes(query.toLowerCase());
+    const catOk = activeCategory === "Todas" || p.categoria === activeCategory;
+    const searchOk = p.nombre.toLowerCase().includes(query.toLowerCase());
     return catOk && searchOk;
   });
 
@@ -85,8 +82,6 @@ function MenuPage() {
       .map(
         (p, i) =>
           `🍕 ${i + 1}. ${p.nombre}
-Tamaño: ${p.tamano}
-Extras: ${p.extras.length ? p.extras.join(", ") : "Ninguno"}
 Cantidad: ${p.cantidad}
 Subtotal: S/ ${p.total}`
       )
@@ -125,7 +120,7 @@ Subtotal: S/ ${p.total}`
           <div className="relative w-full md:w-56">
             <button
               onClick={() => setOpenCategorias(!openCategorias)}
-              className="w-full py-3 px-4 border rounded-xl flex justify-between"
+              className="w-full py-3 px-4 border rounded-xl flex justify-between items-center"
             >
               {activeCategory} <span>▾</span>
             </button>
@@ -165,7 +160,7 @@ Subtotal: S/ ${p.total}`
               />
 
               <div className="p-4">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <h3 className="font-bold">{p.nombre}</h3>
                   <span className="flex items-center gap-1 text-sm bg-yellow-100 px-2 py-1 rounded-full">
                     <FaStar className="text-yellow-500 text-xs" /> 4.8
@@ -177,22 +172,21 @@ Subtotal: S/ ${p.total}`
                 </p>
 
                 <div className="mt-4 grid grid-cols-2 gap-2">
+                  {/* BOTÓN INFO */}
                   <button
-                    onClick={() => {
-                      setSelectedPizza(p);
-                      setOpenInfo(true);
-                    }}
-                    className="border py-2 rounded-lg flex justify-center gap-1"
+                    onClick={() => setOpenInfo(p)}
+                    className="border py-2 rounded-lg flex justify-center items-center gap-1"
                   >
                     <FaInfoCircle /> Info
                   </button>
 
+                  {/* BOTÓN AGREGAR */}
                   <button
                     onClick={() => {
                       setSelectedPizza(p);
                       setOpenAgregar(true);
                     }}
-                    className="bg-yellow-500 text-white py-2 rounded-lg flex justify-center gap-1"
+                    className="bg-yellow-500 text-white py-2 rounded-lg flex justify-center items-center gap-1"
                   >
                     <FaPlusCircle /> Agregar
                   </button>
@@ -203,65 +197,122 @@ Subtotal: S/ ${p.total}`
         </div>
       </main>
 
-      {/* MODAL AGREGAR */}
-      {openAgregar && selectedPizza && (
+      {/* MODAL INFO */}
+      {openInfo && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-2xl w-96 space-y-4">
-            <h3 className="font-bold text-xl">{selectedPizza.nombre}</h3>
-
-            {selectedPizza.tamanos?.map((t) => (
-              <label key={t.nombre} className="block">
-                <input
-                  type="radio"
-                  name="tamano"
-                  onChange={() => setTamano(t)}
-                />{" "}
-                {t.nombre} (+S/ {t.precio})
-              </label>
-            ))}
-
-            {selectedPizza.extras?.map((e) => (
-              <label key={e.nombre} className="block">
-                <input
-                  type="checkbox"
-                  onChange={(ev) =>
-                    ev.target.checked
-                      ? setExtras([...extras, e])
-                      : setExtras(
-                          extras.filter((x) => x.nombre !== e.nombre)
-                        )
-                  }
-                />{" "}
-                {e.nombre} (+S/ {e.precio})
-              </label>
-            ))}
-
-            <div className="flex items-center gap-4">
-              <button onClick={() => setCantidad(Math.max(1, cantidad - 1))}>
-                <FaMinus />
-              </button>
-              <span>{cantidad}</span>
-              <button onClick={() => setCantidad(cantidad + 1)}>
-                <FaPlus />
-              </button>
-            </div>
-
-            <p className="font-bold">Total: S/ {calcularTotal()}</p>
+            <img
+              src={openInfo.img}
+              alt={openInfo.nombre}
+              className="h-48 w-full object-cover rounded-xl"
+            />
+            <h3 className="font-bold text-xl">{openInfo.nombre}</h3>
+            <p className="text-gray-700">{openInfo.descripcion}</p>
+            {openInfo.ingredientes?.length > 0 && (
+              <p className="text-gray-600">
+                Ingredientes: {openInfo.ingredientes.join(", ")}
+              </p>
+            )}
 
             <button
-              onClick={agregarAlCarrito}
-              className="w-full bg-yellow-500 text-white py-2 rounded-xl"
+              onClick={() => setOpenInfo(null)}
+              className="w-full mt-2 border py-2 rounded-xl flex justify-center items-center"
             >
-              Confirmar
+              Cerrar
             </button>
           </div>
         </div>
       )}
 
+     {/* MODAL AGREGAR */}
+{openAgregar && selectedPizza && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-2xl w-96 space-y-4">
+      <h3 className="font-bold text-xl text-center">{selectedPizza.nombre}</h3>
+
+      {/* SELECCIÓN DE TAMAÑO */}
+      {selectedPizza.tamanos?.length > 0 && (
+        <div className="mt-2">
+          <p className="font-semibold mb-1">Tamaños:</p>
+          {selectedPizza.tamanos.map((t) => (
+            <label key={t.nombre} className="block">
+              <input
+                type="radio"
+                name="tamano"
+                className="mr-2"
+                onChange={() => setTamano(t)}
+              />
+              {t.nombre} (+S/ {t.precio})
+            </label>
+          ))}
+        </div>
+      )}
+
+      {/* SELECCIÓN DE EXTRAS */}
+      {selectedPizza.extras?.length > 0 && (
+        <div className="mt-2">
+          <p className="font-semibold mb-1">Extras:</p>
+          {selectedPizza.extras.map((e) => (
+            <label key={e.nombre} className="block">
+              <input
+                type="checkbox"
+                className="mr-2"
+                onChange={(ev) =>
+                  ev.target.checked
+                    ? setExtras([...extras, e])
+                    : setExtras(extras.filter((x) => x.nombre !== e.nombre))
+                }
+              />
+              {e.nombre} (+S/ {e.precio})
+            </label>
+          ))}
+        </div>
+      )}
+
+      {/* CANTIDAD */}
+      <div className="flex items-center gap-4 justify-center mt-4">
+        <button
+          onClick={() => setCantidad(Math.max(1, cantidad - 1))}
+          className="p-2 border rounded-full flex items-center justify-center"
+        >
+          <FaMinus />
+        </button>
+        <span className="font-semibold">{cantidad}</span>
+        <button
+          onClick={() => setCantidad(cantidad + 1)}
+          className="p-2 border rounded-full flex items-center justify-center"
+        >
+          <FaPlus />
+        </button>
+      </div>
+
+      <p className="font-bold text-center mt-2">Total: S/ {calcularTotal()}</p>
+
+      {/* BOTONES AGREGAR Y CERRAR */}
+      <div className="flex flex-col gap-2 mt-4">
+        <button
+          onClick={agregarAlCarrito}
+          className="w-full bg-yellow-500 text-white py-2 rounded-xl flex items-center justify-center gap-2"
+        >
+          <FaPlusCircle /> Agregar al pedido
+        </button>
+
+        <button
+          onClick={() => setOpenAgregar(false)}
+          className="w-full border py-2 rounded-xl flex items-center justify-center gap-2"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+
       {/* BOTÓN CARRITO */}
       <button
         onClick={() => setOpenCarrito(true)}
-        className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full"
+        className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full flex justify-center items-center"
       >
         <FaShoppingCart />
       </button>

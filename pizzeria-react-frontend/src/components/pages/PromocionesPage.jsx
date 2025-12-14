@@ -1,142 +1,185 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../organisms/Footer";
-import { FaRegCalendarAlt, FaWhatsapp } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 
-const ofertasData = [
-  {
-    id: 1,
-    titulo: "Pizza del Mes",
-    descripcion: "Especial Hawaiiana con ingredientes premium",
-    validez: "31 Dic 2025",
-    precioAnterior: "S/ 16.99",
-    precioActual: "S/ 11.99",
-    descuento: "29% OFF",
-    imagenUrl: "https://via.placeholder.com/300x200?text=Pizza+Hawaiiana",
-  },
-  {
-    id: 2,
-    titulo: "Martes de Vegetarianas",
-    descripcion: "Todas las pizzas vegetarianas con 40% de descuento",
-    validez: "Todos los martes",
-    precioAnterior: "S/ 11.99",
-    precioActual: "S/ 7.19",
-    descuento: "40% OFF",
-    imagenUrl: "https://via.placeholder.com/300x200?text=Pizza+Vegetariana",
-  },
-  {
-    id: 3,
-    titulo: "Combo Familiar",
-    descripcion: "2 pizzas medianas + bebida de 2L + palitos de queso",
-    validez: "15 Dic 2025",
-    precioAnterior: "S/ 34.99",
-    precioActual: "S/ 24.99",
-    descuento: "30% OFF",
-    imagenUrl: "https://via.placeholder.com/300x200?text=Combo+Familiar",
-  },
-  {
-    id: 4,
-    titulo: "2x1 en Pizzas Familiares",
-    descripcion:
-      "Lleva 2 pizzas familiares al precio de 1. Válido de lunes a jueves.",
-    validez: "30 Nov 2025",
-    precioAnterior: "S/ 25.98",
-    precioActual: "S/ 12.99",
-    descuento: "50% OFF",
-    imagenUrl: "https://via.placeholder.com/300x200?text=Pizza+Pepperoni",
-  },
-];
-
-const OfertaCard = ({ oferta }) => {
-  const {
-    titulo,
-    descripcion,
-    validez,
-    precioAnterior,
-    precioActual,
-    descuento,
-    imagenUrl,
-  } = oferta;
-
-  return (
-    <div className="flex flex-col sm:flex-row max-w-4xl mx-auto my-6 bg-white border-2 border-yellow-500 rounded-lg shadow-md overflow-hidden hover:shadow-xl">
-      <div className="relative w-full sm:w-2/5 h-48 sm:h-auto">
-        <img
-          src={imagenUrl}
-          alt={titulo}
-          className="w-full h-full object-cover"
-        />
-        <span className="absolute top-4 right-4 bg-yellow-400 text-gray-800 text-sm font-bold px-3 py-1 rounded">
-          {descuento}
-        </span>
-      </div>
-
-      <div className="flex-1 p-6 flex flex-col justify-between">
-        <div>
-          <h3 className="text-2xl font-semibold text-gray-800 mb-1">
-            {titulo}
-          </h3>
-          <p className="text-gray-600 mb-3">{descripcion}</p>
-
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-5">
-            <FaRegCalendarAlt className="text-yellow-500" />
-            Válido hasta: <strong>{validez}</strong>
-          </div>
-        </div>
-
-        <div>
-          <span className="line-through text-gray-400 mr-3">
-            {precioAnterior}
-          </span>
-          <span className="text-2xl font-bold text-gray-800">
-            {precioActual}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
+/* =====================
+   Formatear tiempo
+===================== */
+const formatearTiempo = (segundos) => {
+  const h = Math.floor(segundos / 3600);
+  const m = Math.floor((segundos % 3600) / 60);
+  const s = segundos % 60;
+  return `${h}h ${m}m ${s}s`;
 };
 
+/* =====================
+   Card Promoción
+===================== */
+const OfertaCard = ({ promo, onAdd, selected, disabled, tiempoRestante }) => (
+  <div
+    className={`flex flex-col sm:flex-row max-w-4xl mx-auto my-6 bg-white border-2 rounded-lg shadow-md overflow-hidden
+      ${selected ? "border-green-500" : "border-yellow-500"}
+      ${disabled && !selected ? "opacity-50" : ""}`}
+  >
+    <div className="relative w-full sm:w-2/5 h-48">
+      <img src={promo.imagenUrl} alt={promo.titulo} className="w-full h-full object-cover" />
+      <span className="absolute top-4 right-4 bg-yellow-400 px-3 py-1 font-bold rounded">{promo.descuento}</span>
+    </div>
+
+    <div className="flex-1 p-6 flex flex-col justify-between">
+      <div>
+        <h3 className="text-2xl font-semibold flex items-center gap-2">
+          {promo.titulo}
+          {selected && <FaCheckCircle className="text-green-500" />}
+        </h3>
+        <p className="text-gray-600 mb-3">{promo.descripcion}</p>
+
+        {selected && tiempoRestante > 0 ? (
+          <p className="text-red-500 font-semibold mt-2">
+            Tiempo restante: {formatearTiempo(tiempoRestante)}
+          </p>
+        ) : selected && tiempoRestante <= 0 ? (
+          <p className="text-gray-500 font-semibold mt-2">Promoción expirada</p>
+        ) : null}
+      </div>
+
+      <div className="mt-4 flex items-center justify-between">
+        <div>
+          <span className="line-through text-gray-400 mr-3">S/ {promo.precioAnterior}</span>
+          <span className="text-2xl font-bold">S/ {promo.precioActual}</span>
+        </div>
+
+        <button
+          disabled={disabled}
+          onClick={() => onAdd(promo)}
+          className={`px-4 py-2 rounded font-semibold transition
+            ${selected
+              ? "bg-green-500 text-white cursor-not-allowed"
+              : disabled
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-yellow-500 hover:bg-yellow-600 text-gray-900"}`}
+        >
+          {selected ? "Promoción en curso" : "Pedir promoción"}
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
+/* =====================
+   Page Promociones
+===================== */
 export default function PromocionesPage() {
-  // Mensaje predefinido para WhatsApp
-  const mensaje =
-    "¡Hola! Quisiera saber más sobre las promociones de Pizzería Ohana y realizar un pedido.";
-  const whatsappUrl = `https://wa.me/51910151588?text=${encodeURIComponent(
-    mensaje
-  )}`;
+  const [promociones, setPromociones] = useState([]);
+  const [promoElegida, setPromoElegida] = useState(null);
+  const [tiempoRestante, setTiempoRestante] = useState(0);
+  const [contadorActivo, setContadorActivo] = useState(false);
+
+  /* =====================
+     Cargar promociones desde backend y revisar localStorage
+  ====================== */
+  useEffect(() => {
+    fetch("http://localhost:3000/api/promociones")
+      .then((res) => res.json())
+      .then(setPromociones)
+      .catch(console.error);
+
+    const guardada = localStorage.getItem("promoElegida");
+    if (guardada) {
+      const parsed = JSON.parse(guardada);
+      const ahora = Date.now();
+      const fin = parsed.inicio + parsed.duracion * 1000;
+      const restante = Math.max(Math.floor((fin - ahora) / 1000), 0);
+
+      if (restante > 0) {
+        setTimeout(() => {
+          setPromoElegida(parsed);
+          setTiempoRestante(restante);
+          setContadorActivo(true);
+        }, 0);
+      } else {
+        localStorage.removeItem("promoElegida");
+      }
+    }
+  }, []);
+
+  /* =====================
+     Contador
+  ====================== */
+  useEffect(() => {
+    if (!contadorActivo) return;
+
+    const timer = setInterval(() => {
+      setTiempoRestante((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setPromoElegida(null);
+          setContadorActivo(false);
+          localStorage.removeItem("promoElegida");
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [contadorActivo]);
+
+  /* =====================
+     Pedir promoción y abrir WhatsApp
+  ====================== */
+  const pedirPromocion = (promo) => {
+    if (contadorActivo) return;
+
+    const mensaje = `Hola,
+He elegido esta promoción:
+
+Título: ${promo.titulo}
+Descripción: ${promo.descripcion}
+Precio: S/ ${promo.precioActual}
+Descuento: ${promo.descuento}
+
+Quisiera confirmar mi pedido.`;
+
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=51914068562&text=${encodeURIComponent(mensaje)}&type=phone_number&app_absent=0`;
+    const nuevaVentana = window.open(whatsappUrl, "_blank");
+
+    // Intentar cerrar automáticamente la ventana de WhatsApp después de 1 segundo
+    if (nuevaVentana) {
+      setTimeout(() => {
+        nuevaVentana.close();
+      }, 1000);
+    }
+
+    // Guardar promo y activar contador
+    const data = { ...promo, inicio: Date.now() };
+    localStorage.setItem("promoElegida", JSON.stringify(data));
+    setTimeout(() => {
+      setPromoElegida(data);
+      setTiempoRestante(promo.duracion);
+      setContadorActivo(true);
+    }, 0);
+  };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <main className="pt-10 pb-16 px-4 sm:px-6 lg:px-8 w-full">
-        <section className="text-center mb-10">
-          <h1 className="text-4xl font-extrabold text-gray-800 mb-2">
-            Promociones Especiales
-          </h1>
-          <p className="text-xl text-gray-600">
-            Aprovecha nuestras increíbles ofertas
-          </p>
-        </section>
+    <div className="min-h-screen flex flex-col">
+      <main className="pt-10 pb-16 px-4">
+        <h1 className="text-4xl font-bold text-center mb-3">Promociones Especiales</h1>
+        <p className="text-center text-gray-600 mb-8">Solo una promoción por cliente</p>
 
-        <section>
-          {ofertasData.map((oferta) => (
-            <OfertaCard key={oferta.id} oferta={oferta} />
-          ))}
-        </section>
+        {promociones.map((promo) => (
+          <OfertaCard
+            key={promo._id}
+            promo={promo}
+            onAdd={pedirPromocion}
+            selected={promoElegida?._id === promo._id}
+            disabled={promoElegida && promoElegida._id !== promo._id}
+            tiempoRestante={promoElegida?._id === promo._id ? tiempoRestante : null}
+          />
+        ))}
       </main>
 
       <Footer />
-
-      {/* BOTÓN FLOTANTE DE WHATSAPP */}
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 flex items-center justify-center bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition-all z-50
-          w-14 h-14 lg:w-32 lg:h-14"
-        aria-label="Contacto por WhatsApp"
-      >
-        <FaWhatsapp size={24} />
-        <span className="ml-2 font-medium hidden lg:inline">Consultar</span>
-      </a>
     </div>
   );
 }
