@@ -29,27 +29,22 @@ function IniciarSesionPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // IMPORTANTE para cookies HttpOnly
-          body: JSON.stringify({
-            email: email.trim(),
-            password,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // IMPORTANTE para cookies HttpOnly
+        body: JSON.stringify({
+          email: email.trim(),
+          password,
+        }),
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.error || "Usuario y/o contraseña incorrectos."
-        );
+        throw new Error(data.error || "Usuario y/o contraseña incorrectos.");
       }
 
       // Redirección según rol
@@ -81,14 +76,11 @@ function IniciarSesionPage() {
         <h1 className="text-2xl font-bold text-gray-800">
           <span className="text-yellow-600">Ohana</span> Pizzería
         </h1>
-        <p className="text-sm text-gray-500 mt-1">
-          ¡Bienvenido de nuevo!
-        </p>
       </header>
 
       {/* Main */}
       <main className="flex-1 flex items-center justify-center px-4 py-6">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-yellow-200">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-yellow-500">
           <div className="text-center mb-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
               Iniciar Sesión
@@ -99,7 +91,7 @@ function IniciarSesionPage() {
           </div>
 
           {error && (
-            <div className="flex items-center gap-2 p-3 mb-5 text-sm text-red-700 bg-red-50 rounded-lg border border-red-200">
+            <div className="flex items-center gap-2 p-3 mb-5 text-sm text-red-700 bg-red-50 rounded-lg border border-yellow-500">
               <FaExclamationTriangle />
               <span>{error}</span>
             </div>
@@ -120,7 +112,7 @@ function IniciarSesionPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
-                  className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 outline-none"
+                  className="w-full pl-10 pr-4 py-3 border border-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-500 outline-none"
                   placeholder="ejemplo@ohana.com"
                   autoComplete="email"
                 />
@@ -141,7 +133,7 @@ function IniciarSesionPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isLoading}
-                  className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 outline-none"
+                  className="w-full pl-10 pr-4 py-3 border border-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-500 outline-none"
                   placeholder="••••••••"
                   autoComplete="current-password"
                 />
@@ -152,21 +144,18 @@ function IniciarSesionPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full py-3 rounded-lg text-white font-semibold transition ${
-                isLoading
+              className={`w-full py-3 rounded-lg text-white font-semibold transition ${isLoading
                   ? "bg-yellow-400 cursor-not-allowed"
                   : "bg-yellow-600 hover:bg-yellow-700 active:scale-95"
-              }`}
+                }`}
             >
               {isLoading ? "Iniciando..." : "Iniciar Sesión"}
             </button>
           </form>
 
           {/* Registro */}
-          <div className="mt-6 pt-5 border-t text-center">
-            <p className="text-sm text-gray-600">
-              ¿No tienes cuenta?
-            </p>
+          <div className="mt-6 pt-5 border-t border-yellow-500 text-center">
+            <p className="text-sm text-gray-600">¿No tienes cuenta?</p>
             <Link
               to="/registrate-aqui"
               className="text-yellow-600 font-semibold hover:underline"
