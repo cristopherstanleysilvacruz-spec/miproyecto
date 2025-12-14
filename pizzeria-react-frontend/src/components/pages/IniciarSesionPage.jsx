@@ -113,7 +113,7 @@ function IniciarSesionPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
                   className="w-full pl-10 pr-4 py-3 border border-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-500 outline-none"
-                  placeholder="ejemplo@ohana.com"
+                  placeholder="ejemohana@gmail.com"
                   autoComplete="email"
                 />
               </div>
