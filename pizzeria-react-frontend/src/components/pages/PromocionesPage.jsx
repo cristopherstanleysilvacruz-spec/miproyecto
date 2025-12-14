@@ -17,42 +17,48 @@ const formatearTiempo = (segundos) => {
 ===================== */
 const OfertaCard = ({ promo, onAdd, selected, disabled, tiempoRestante }) => (
   <div
-    className={`flex flex-col sm:flex-row max-w-4xl mx-auto my-6 bg-white border-2 rounded-lg shadow-md overflow-hidden
+    className={`flex flex-col md:flex-row max-w-5xl mx-auto my-6 bg-white border-2 rounded-xl shadow-lg overflow-hidden
       ${selected ? "border-green-500" : "border-yellow-500"}
-      ${disabled && !selected ? "opacity-50" : ""}`}
+      ${disabled && !selected ? "opacity-50" : ""} transition-all duration-300`}
   >
-    <div className="relative w-full sm:w-2/5 h-48">
-      <img src={promo.imagenUrl} alt={promo.titulo} className="w-full h-full object-cover" />
-      <span className="absolute top-4 right-4 bg-yellow-400 px-3 py-1 font-bold rounded">{promo.descuento}</span>
+    <div className="relative w-full md:w-2/5 h-64 md:h-auto flex-shrink-0">
+      <img
+        src={promo.imagenUrl}
+        alt={promo.titulo}
+        className="w-full h-full object-cover"
+      />
+      <span className="absolute top-4 right-4 bg-yellow-400 px-3 py-1 font-bold rounded shadow">
+        {promo.descuento}
+      </span>
     </div>
 
     <div className="flex-1 p-6 flex flex-col justify-between">
       <div>
-        <h3 className="text-2xl font-semibold flex items-center gap-2">
+        <h3 className="text-2xl md:text-3xl font-semibold flex items-center gap-2 mb-2">
           {promo.titulo}
-          {selected && <FaCheckCircle className="text-green-500" />}
+          {selected && <FaCheckCircle className="text-green-500 text-xl md:text-2xl" />}
         </h3>
-        <p className="text-gray-600 mb-3">{promo.descripcion}</p>
+        <p className="text-gray-600 mb-3 text-sm md:text-base">{promo.descripcion}</p>
 
         {selected && tiempoRestante > 0 ? (
-          <p className="text-red-500 font-semibold mt-2">
+          <p className="text-red-500 font-semibold mt-2 text-sm md:text-base">
             Tiempo restante: {formatearTiempo(tiempoRestante)}
           </p>
         ) : selected && tiempoRestante <= 0 ? (
-          <p className="text-gray-500 font-semibold mt-2">Promoción expirada</p>
+          <p className="text-gray-500 font-semibold mt-2 text-sm md:text-base">Promoción expirada</p>
         ) : null}
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
-        <div>
-          <span className="line-through text-gray-400 mr-3">S/ {promo.precioAnterior}</span>
-          <span className="text-2xl font-bold">S/ {promo.precioActual}</span>
+      <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="text-center sm:text-left">
+          <span className="line-through text-gray-400 mr-2 text-sm md:text-base">S/ {promo.precioAnterior}</span>
+          <span className="text-2xl md:text-3xl font-bold">S/ {promo.precioActual}</span>
         </div>
 
         <button
           disabled={disabled}
           onClick={() => onAdd(promo)}
-          className={`px-4 py-2 rounded font-semibold transition
+          className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-300
             ${selected
               ? "bg-green-500 text-white cursor-not-allowed"
               : disabled
@@ -75,9 +81,6 @@ export default function PromocionesPage() {
   const [tiempoRestante, setTiempoRestante] = useState(0);
   const [contadorActivo, setContadorActivo] = useState(false);
 
-  /* =====================
-     Cargar promociones desde backend y revisar localStorage
-  ====================== */
   useEffect(() => {
     fetch("http://localhost:3000/api/promociones")
       .then((res) => res.json())
@@ -103,9 +106,6 @@ export default function PromocionesPage() {
     }
   }, []);
 
-  /* =====================
-     Contador
-  ====================== */
   useEffect(() => {
     if (!contadorActivo) return;
 
@@ -125,9 +125,6 @@ export default function PromocionesPage() {
     return () => clearInterval(timer);
   }, [contadorActivo]);
 
-  /* =====================
-     Pedir promoción y abrir WhatsApp
-  ====================== */
   const pedirPromocion = (promo) => {
     if (contadorActivo) return;
 
@@ -144,14 +141,12 @@ Quisiera confirmar mi pedido.`;
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=51914068562&text=${encodeURIComponent(mensaje)}&type=phone_number&app_absent=0`;
     const nuevaVentana = window.open(whatsappUrl, "_blank");
 
-    // Intentar cerrar automáticamente la ventana de WhatsApp después de 1 segundo
     if (nuevaVentana) {
       setTimeout(() => {
         nuevaVentana.close();
       }, 1000);
     }
 
-    // Guardar promo y activar contador
     const data = { ...promo, inicio: Date.now() };
     localStorage.setItem("promoElegida", JSON.stringify(data));
     setTimeout(() => {
@@ -162,10 +157,10 @@ Quisiera confirmar mi pedido.`;
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="pt-10 pb-16 px-4">
-        <h1 className="text-4xl font-bold text-center mb-3">Promociones Especiales</h1>
-        <p className="text-center text-gray-600 mb-8">Solo una promoción por cliente</p>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <main className="pt-10 pb-16 px-4 md:px-8">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-3">Promociones Especiales</h1>
+        <p className="text-center text-gray-600 text-sm md:text-base mb-8">Solo una promoción por cliente</p>
 
         {promociones.map((promo) => (
           <OfertaCard
