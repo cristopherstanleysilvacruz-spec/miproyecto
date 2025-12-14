@@ -1,10 +1,10 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'; 
 import { FaFacebook, FaInstagram, FaWhatsapp, FaTiktok } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 
 function HomePage() {
   const navigate = useNavigate();
-  const location = useLocation(); // Para resetear scroll behavior al cambiar de ruta
+  const location = useLocation();
 
   const [showWhatsApp, setShowWhatsApp] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -12,19 +12,16 @@ function HomePage() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scroll hacia abajo → ocultar
         setShowWhatsApp(false);
       } else {
-        // Scroll hacia arriba o cerca del top → mostrar
         setShowWhatsApp(true);
       }
+
+  
       setLastScrollY(currentScrollY);
     };
-
-    // Reset scroll state al cambiar de página
-    setLastScrollY(0);
-    setShowWhatsApp(true);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -33,10 +30,8 @@ function HomePage() {
   return (
     <main className="w-full bg-white flex flex-col min-h-screen">
 
-      {/* CONTENIDO PRINCIPAL: TEXTO, BOTONES E IMAGEN */}
+      {/* CONTENIDO PRINCIPAL */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        
-        {/* TEXTO Y BOTONES (COLUMNA 1 en MD) */}
         <div className="text-center md:text-left order-2 md:order-1">
           <h2 className="text-4xl md:text-5xl font-extrabold text-black mb-6">
             Las Mejores Pizzas Artesanales de la Ciudad
@@ -59,8 +54,7 @@ function HomePage() {
             </button>
           </div>
         </div>
-        
-        {/* IMAGEN HERO (COLUMNA 2 en MD) */}
+
         <div className="flex justify-center md:justify-end order-1 md:order-2">
           <div className="w-72 h-72 md:w-96 md:h-96 rounded-full shadow-xl border-4 border-black overflow-hidden bg-gray-100">
             <img
@@ -70,10 +64,21 @@ function HomePage() {
             />
           </div>
         </div>
-
       </div>
 
-      {/* FOOTER SENCILLO — bajado un poquito más con mt-12 */}
+      {/* BOTÓN WHATSAPP (YA USA showWhatsApp) */}
+      {showWhatsApp && (
+        <a
+          href="https://wa.me/51910151588"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:scale-110 transition"
+        >
+          <FaWhatsapp size={28} />
+        </a>
+      )}
+
+      {/* FOOTER */}
       <footer className="bg-black text-white mt-12 py-8">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -82,17 +87,13 @@ function HomePage() {
           </div>
           <div>
             <h3 className="text-xl font-bold mb-2">Contacto</h3>
-            <p className="text-gray-300 text-sm">Tel: +51 910 151 588 </p>
-            <p className="text-gray-300 text-sm">Email:</p>
+            <p className="text-gray-300 text-sm">Tel: +51 910 151 588</p>
           </div>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-yellow-500"><FaFacebook size={20} /></a>
-            <a href="#" className="hover:text-yellow-500"><FaInstagram size={20} /></a>
-            <a href="#" className="hover:text-yellow-500"><FaTiktok size={20} /></a>
+            <FaFacebook />
+            <FaInstagram />
+            <FaTiktok />
           </div>
-        </div>
-        <div className="text-center text-gray-400 text-sm mt-6">
-          &copy; {new Date().getFullYear()} Pizzería Ohana. Todos los derechos reservados.
         </div>
       </footer>
     </main>
