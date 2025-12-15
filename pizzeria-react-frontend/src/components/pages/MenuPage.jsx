@@ -143,51 +143,86 @@ function MenuPage() {
         </div>
       </div>
 
-      {/* TARJETAS */}
-      <main className="flex-1 max-w-6xl mx-auto px-6 py-12">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filtrarProductos.map((p) => (
-            <div
-              key={p._id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden flex flex-col w-full sm:w-65 md:w-67.5 lg:w-70"
+   {/* TARJETAS */}
+<main className="flex-1 max-w-6xl mx-auto px-6 py-12">
+  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
+    {filtrarProductos.map((p) => (
+      <div
+        key={p._id}
+        className="
+          bg-white
+          rounded-2xl
+          border-[3px] border-black
+          shadow-lg
+          overflow-hidden
+          flex flex-col
+          w-full sm:w-65 md:w-67.5 lg:w-70
+          transition-all duration-300 ease-in-out
+          hover:shadow-2xl
+          hover:-translate-y-2
+          hover:scale-[1.03]
+          hover:border-yellow-500
+        "
+      >
+        <img
+          src={p.img}
+          alt={p.nombre}
+          className="h-48 w-full object-cover"
+        />
+
+        <div className="p-4 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 className="font-bold text-lg">{p.nombre}</h3>
+            <p className="text-yellow-600 font-extrabold text-xl mt-2">
+              S/ {p.precio}
+            </p>
+          </div>
+
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <button
+              onClick={() => setOpenInfo(p)}
+              className="
+                border
+                py-2
+                rounded-lg
+                flex
+                justify-center
+                items-center
+                gap-1
+                hover:bg-yellow-50
+                transition
+              "
             >
-              <img
-                src={p.img}
-                alt={p.nombre}
-                className="h-48 w-full object-cover"
-              />
+              <FaInfoCircle /> Info
+            </button>
 
-              <div className="p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="font-bold">{p.nombre}</h3>
-                  <p className="text-yellow-600 font-extrabold text-xl mt-2">
-                    S/ {p.precio}
-                  </p>
-                </div>
-
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => setOpenInfo(p)}
-                    className="border py-2 rounded-lg flex justify-center items-center gap-1 hover:bg-yellow-50 transition"
-                  >
-                    <FaInfoCircle /> Info
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setSelectedPizza(p);
-                      setOpenAgregar(true);
-                    }}
-                    className="bg-yellow-500 text-white py-2 rounded-lg flex justify-center items-center gap-1 hover:bg-yellow-600 transition"
-                  >
-                    <FaPlusCircle /> Agregar
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+            <button
+              onClick={() => {
+                setSelectedPizza(p);
+                setOpenAgregar(true);
+              }}
+              className="
+                bg-yellow-500
+                text-white
+                py-2
+                rounded-lg
+                flex
+                justify-center
+                items-center
+                gap-1
+                hover:bg-yellow-600
+                transition
+              "
+            >
+              <FaPlusCircle /> Agregar
+            </button>
+          </div>
         </div>
-      </main>
+      </div>
+    ))}
+  </div>
+</main>
+
 
       {/* MODAL INFO */}
       {openInfo && (
