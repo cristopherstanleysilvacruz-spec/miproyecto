@@ -1,4 +1,3 @@
-import React from "react";
 import Footer from "../organisms/Footer";
 import { FaLeaf, FaHandHoldingHeart, FaUsers, FaRecycle } from "react-icons/fa";
 
@@ -7,18 +6,19 @@ export default function SobreNosotrosPage() {
     <div className="bg-white min-h-screen flex flex-col font-sans">
       {/* HERO — ahora con sombra más definida para destacar sobre fondo blanco */}
       <section className="py-16 px-4 sm:px-6 md:px-8 text-center bg-linear-to-r from-amber-50 to-amber-100 shadow-sm">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-3">
-          Sobre <span className="text-amber-700">Nosotros</span>
+        <h1 className="text-3xl md:text-5xl font-extrabold text-black mb-3">
+          Sobre <span className="text-yellow-500">Nosotros</span>
         </h1>
+
         <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto font-medium leading-relaxed">
-          Donde cada pizza cuenta una historia de familia, tradición y sabor auténtico.
+          Donde cada pizza cuenta una historia de familia, tradición y sabor
+          auténtico.
         </p>
       </section>
 
       {/* CONTENIDO PRINCIPAL */}
       <main className="flex-1 px-4 sm:px-6 md:px-8 py-12">
         <div className="max-w-6xl mx-auto space-y-12">
-
           {/* 🔷 SECCIÓN 1: NUESTRA HISTORIA */}
           <section className="bg-white rounded-3xl shadow-sm border-2 border-amber-500 p-6 md:p-8">
             <div className="flex flex-col lg:flex-row items-center gap-10">
@@ -28,10 +28,17 @@ export default function SobreNosotrosPage() {
                 </h2>
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p>
-                    En 1995, Mario abrió un pequeño local con un horno de leña y un sueño: compartir el sabor auténtico de la pizza italiana.
+                    Pizzería Ohana nace en Celendín como un emprendimiento
+                    familiar inspirado en un valor fundamental: la familia.
                   </p>
                   <p>
-                    Hoy, Ohana —que significa <em>“familia”</em> en hawaiano— sigue ese legado: cocinamos como si cada plato fuera para los nuestros.
+                    La palabra Ohana significa <em>familia</em>, y representa la
+                    unión, el cariño y la importancia de compartir momentos
+                    juntos. Desde nuestros inicios, hemos buscado ofrecer pizzas
+                    artesanales elaboradas con dedicación, ingredientes frescos
+                    y recetas tradicionales, creando un espacio donde amigos y
+                    familias se reúnen para disfrutar no solo de una buena
+                    pizza, sino también de una experiencia cálida y cercana.
                   </p>
                 </div>
               </div>
@@ -40,8 +47,8 @@ export default function SobreNosotrosPage() {
                 <div className="relative w-80 h-80 sm:w-96 sm:h-96">
                   <div className="absolute inset-0 rounded-full border-4 border-amber-500 shadow-lg overflow-hidden">
                     <img
-                      src=""
-                      alt="Pizza Margherita — el inicio de nuestra historia"
+                      src="/imgs/ohana_historia.png"
+                      alt="El inicio de nuestra historia"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -59,10 +66,16 @@ export default function SobreNosotrosPage() {
                 </h2>
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p>
-                    No seguimos tendencias: creamos experiencias. Usamos ingredientes frescos, masa fermentada 48h y técnicas heredadas.
+                    En Pizzería Ohana, la pasión por el sabor se refleja en cada
+                    detalle.
                   </p>
                   <p>
-                    Cada pizza es una combinación de tradición italiana, toques peruanos y mucho cariño.
+                    Cada pizza es elaborada con ingredientes cuidadosamente
+                    seleccionados, masas preparadas al momento y una atención
+                    especial en cada combinación. Más que vender pizzas,
+                    buscamos brindar una experiencia auténtica, donde el sabor,
+                    la calidad y el cariño en la preparación se sienten en cada
+                    bocado.
                   </p>
                 </div>
               </div>
@@ -71,8 +84,8 @@ export default function SobreNosotrosPage() {
                 <div className="relative w-80 h-80 sm:w-96 sm:h-96">
                   <div className="absolute inset-0 rounded-full border-4 border-amber-500 shadow-lg overflow-hidden">
                     <img
-                      src=""
-                      alt="Chef amasando pizza — pasión en cada detalle"
+                      src="/imgs/ohana_sabor.png"
+                      alt="Pasión en cada detalle"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -81,10 +94,10 @@ export default function SobreNosotrosPage() {
             </div>
           </section>
 
-          {/* 🔶 LÍNEA HORIZONTAL SUAVE */}
+          {/* LÍNEA HORIZONTAL SUAVE */}
           <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full my-8"></div>
 
-          {/* VALORES CLAVE — con fondo cálido para contraste */}
+          {/* VALORES CLAVE */}
           <section className="pt-6">
             <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-10">
               Lo que nos define
@@ -97,7 +110,9 @@ export default function SobreNosotrosPage() {
                   desc: "Ingredientes locales y de temporada, cada día.",
                 },
                 {
-                  icon: <FaHandHoldingHeart className="text-amber-600 text-3xl" />,
+                  icon: (
+                    <FaHandHoldingHeart className="text-amber-600 text-3xl" />
+                  ),
                   title: "Artesanal",
                   desc: "Masa hecha a mano, sin congelar ni acelerantes.",
                 },
@@ -118,8 +133,12 @@ export default function SobreNosotrosPage() {
                              hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <div className="flex justify-center mb-3">{item.icon}</div>
-                  <h3 className="font-bold text-amber-800 text-lg mb-2">{item.title}</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="font-bold text-amber-800 text-lg mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
               ))}
             </div>

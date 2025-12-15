@@ -1,4 +1,3 @@
-import React from "react";
 // Importaciones de react-icons
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from "react-icons/fa";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
@@ -6,11 +5,10 @@ import { SiTiktok } from "react-icons/si";
 import Footer from "../organisms/Footer";
 
 function ContactoPage() {
- 
   return (
     <div className="w-full bg-gray-100">
       <div className="px-4 sm:px-5 md:px-6 pt-8 sm:pt-10 md:pt-12 pb-12 sm:pb-14 md:pb-16 max-w-6xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-3 sm:mb-4">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center text-black mb-3 sm:mb-4">
           Contáctanos
         </h1>
 
@@ -21,37 +19,58 @@ function ContactoPage() {
         {/* GRID PRINCIPAL */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
           {/* COLUMNA IZQUIERDA */}
-          <div className="space-y-5 sm:space-y-6">
+          <div className="space-y-4 sm:space-y-5">
             {/* Teléfono */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl p-5 sm:p-6 flex flex-col items-center text-center border-2 border-yellow-500">
-              <FaPhone className="text-yellow-600 w-7 h-7 sm:w-8 sm:h-8 mb-2 sm:mb-3" />
+            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-5 flex flex-col items-center text-center border-2 border-yellow-500">
+              <FaPhone className="text-yellow-600 w-6 h-6 sm:w-7 sm:h-7 mb-2" />
               <p className="font-semibold text-gray-800">Teléfono</p>
-              <p className="text-gray-600 mt-1"> +51 910 151 588</p>
+              <p className="text-gray-600 mt-1">+51 910 151 588</p>
             </div>
 
             {/* Correo */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl p-5 sm:p-6 flex flex-col items-center text-center border-2 border-yellow-500">
-              <FaEnvelope className="text-yellow-600 w-7 h-7 sm:w-8 sm:h-8 mb-2 sm:mb-3" />
+            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-5 flex flex-col items-center text-center border-2 border-yellow-500">
+              <FaEnvelope className="text-yellow-600 w-6 h-6 sm:w-7 sm:h-7 mb-2" />
               <p className="font-semibold text-gray-800">Correo</p>
               <p className="text-gray-600 mt-1">ohanapizzas@gmail.com</p>
             </div>
 
             {/* Horario */}
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl p-5 sm:p-6 flex flex-col items-center text-center border-2 border-yellow-500">
-              <FaClock className="text-yellow-600 w-7 h-7 sm:w-8 sm:h-8 mb-2 sm:mb-3" />
+            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-5 flex flex-col items-center text-center border-2 border-yellow-500">
+              <FaClock className="text-yellow-600 w-6 h-6 sm:w-7 sm:h-7 mb-2" />
               <p className="font-semibold text-gray-800">Horario</p>
-              <p className="text-gray-600 mt-1">
-                Desde las 18:00 hs - 11:00 hs
-              </p>
+              <p className="text-gray-600 mt-1">4:00 p.m. - 11:00 p.m.</p>
+            </div>
+
+            {/* WhatsApp */}
+            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-5 flex flex-col items-center text-center border-2 border-yellow-500">
+              <FaWhatsapp className="text-green-600 w-6 h-6 sm:w-7 sm:h-7 mb-2" />
+              <p className="font-semibold text-gray-800">WhatsApp</p>
+              <a
+                href="https://wa.me/51910151588?text=Hola%20%20Pizzería%20Ohana,%20quisiera%20hacer%20un%20pedido%20o%20recibir%20más%20información%20sobre%20sus%20pizzas.%20Gracias."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-600 mt-1 hover:underline"
+              >
+                Escríbenos aquí
+              </a>
             </div>
           </div>
 
           {/* COLUMNA DERECHA */}
           <div className="space-y-5 sm:space-y-6">
-            {/* MAPA — Luque, Paraguay */}
-            <div className="w-full h-64 sm:h-72 md:h-80 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl border-2 border-yellow-500">
+            {/* UBICACIÓN */}
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl p-4 sm:p-5 border-2 border-yellow-500 text-center">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <FaMapMarkerAlt className="text-yellow-600 w-6 h-6" />
+                <p className="font-semibold text-gray-800">Ubicación</p>
+              </div>
+              <p className="text-gray-600 text-sm">Jr. Ayacucho 399</p>
+            </div>
+
+            {/* MAPA */}
+            <div className="w-full h-56 sm:h-64 md:h-72 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl border-2 border-yellow-500">
               <iframe
-                title="Pizzería Ohana - Luque"
+                title="Pizzería Ohana - Celendín"
                 width="100%"
                 height="100%"
                 loading="lazy"
@@ -69,11 +88,12 @@ function ContactoPage() {
 
               <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                 <a
-                  href="https://facebook.com/ohanapizzeria"
+                  href="https://www.facebook.com/share/17kzjs83wg/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-blue-600 transition-colors"
+                  className="transition-colors"
                   aria-label="Facebook"
+                  style={{ color: "#1877F2" }} // Facebook Blue
                 >
                   <FaFacebookF className="w-7 h-7 sm:w-8 sm:h-8" />
                 </a>
@@ -82,18 +102,20 @@ function ContactoPage() {
                   href="https://instagram.com/ohanapizzeria"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-pink-600 transition-colors"
+                  className="transition-colors"
                   aria-label="Instagram"
+                  style={{ color: "#E1306C" }} // Instagram Pink
                 >
                   <FaInstagram className="w-7 h-7 sm:w-8 sm:h-8" />
                 </a>
 
                 <a
-                  href="https://wa.me/51910151588?text=Hola%20👋%20quisiera%20hacer%20un%20pedido%20o%20recibir%20más%20información%20sobre%20sus%20pizzas.%20Gracias."
+                  href="https://wa.me/51910151588?text=Hola%20%20Pizzería%20Ohana,%20quisiera%20hacer%20un%20pedido%20o%20recibir%20más%20información%20sobre%20sus%20pizzas.%20Gracias."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-green-600 transition-colors"
+                  className="transition-colors"
                   aria-label="WhatsApp"
+                  style={{ color: "#25D366" }} // WhatsApp Green
                 >
                   <FaWhatsapp className="w-7 h-7 sm:w-8 sm:h-8" />
                 </a>
@@ -102,8 +124,9 @@ function ContactoPage() {
                   href="https://www.tiktok.com/@ohanapizzeria"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-black transition-colors"
+                  className="transition-colors"
                   aria-label="TikTok"
+                  style={{ color: "#000000" }} // TikTok Black
                 >
                   <SiTiktok className="w-7 h-7 sm:w-8 sm:h-8" />
                 </a>
@@ -112,7 +135,7 @@ function ContactoPage() {
           </div>
         </div>
 
-        {/* PREGUNTAS FRECUENTES — actualizadas con datos reales */}
+        {/* PREGUNTAS FRECUENTES */}
         <div className="mt-10 sm:mt-12 md:mt-16 max-w-4xl mx-auto bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl p-5 sm:p-6 md:p-8 border-2 border-yellow-500">
           <h2 className="text-xl sm:text-2xl font-bold text-center text-gray-800 mb-4 sm:mb-6">
             Preguntas Frecuentes
@@ -125,7 +148,7 @@ function ContactoPage() {
               },
               {
                 q: "¿Cuál es el horario de atención?",
-                a: "Nuestro horario de atención es de lunes a domingo, desde las 6:00 p.m. hasta las 11:00 p.m. Para que puedas disfrutar de nuestras pizzas todos los días.",
+                a: "Nuestro horario de atención es de lunes a domingo, desde las 4:00 p.m. hasta las 11:00 p.m. Para que puedas disfrutar de nuestras pizzas todos los días.",
               },
               {
                 q: "¿Hacen envíos a domicilio?",

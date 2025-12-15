@@ -73,8 +73,8 @@ function IniciarSesionPage() {
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 flex flex-col">
       {/* Header */}
       <header className="py-4 text-center">
-        <h1 className="text-2xl font-bold text-gray-800">
-          <span className="text-yellow-600">Ohana</span> Pizzería
+        <h1 className="text-2xl font-bold text-black">
+          Pizzería <span className="text-yellow-500">Ohana</span>
         </h1>
       </header>
 
@@ -82,9 +82,10 @@ function IniciarSesionPage() {
       <main className="flex-1 flex items-center justify-center px-4 py-6">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-yellow-500">
           <div className="text-center mb-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
-              Iniciar Sesión
+            <h2 className="text-2xl sm:text-3xl font-bold text-black">
+              Iniciar <span className="text-yellow-500">Sesión</span>
             </h2>
+
             <p className="text-gray-500 mt-2 text-sm">
               Accede a tu cuenta para continuar
             </p>
@@ -144,10 +145,11 @@ function IniciarSesionPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full py-3 rounded-lg text-white font-semibold transition ${isLoading
+              className={`w-full py-3 rounded-lg text-white font-semibold transition ${
+                isLoading
                   ? "bg-yellow-400 cursor-not-allowed"
                   : "bg-yellow-600 hover:bg-yellow-700 active:scale-95"
-                }`}
+              }`}
             >
               {isLoading ? "Iniciando..." : "Iniciar Sesión"}
             </button>

@@ -93,9 +93,10 @@ function MenuPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* HERO */}
       <section className="text-center py-14 px-6 bg-yellow-50">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900">
-          Nuestro <span className="text-yellow-500">Menú</span>
-        </h1>
+<h1 className="text-4xl sm:text-5xl font-extrabold text-black">
+  Nuestro <span className="text-yellow-500">Menú</span>
+</h1>
+
         <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
           Pizzas artesanales hechas con ingredientes frescos y tradición
         </p>
@@ -148,7 +149,7 @@ function MenuPage() {
           {filtrarProductos.map((p) => (
             <div
               key={p._id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden flex flex-col w-full sm:w-[260px] md:w-[270px] lg:w-[280px]"
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden flex flex-col w-full sm:w-65 md:w-67.5 lg:w-70"
             >
               <img
                 src={p.img}

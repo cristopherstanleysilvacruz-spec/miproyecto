@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Footer from "../organisms/Footer";
-import {
-  FaEnvelope,
-  FaLock,
-  FaExclamationTriangle,
-} from "react-icons/fa";
+import { FaEnvelope, FaLock, FaExclamationTriangle } from "react-icons/fa";
 
 function RegistrateAqui() {
   const [nombre, setNombre] = useState("");
@@ -76,9 +72,10 @@ function RegistrateAqui() {
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 flex flex-col">
       {/* Optional header */}
       <header className="py-4 text-center">
-        <h1 className="text-2xl font-bold text-gray-800">
-          <span className="text-yellow-600">Ohana</span> Pizzería
+        <h1 className="text-2xl font-bold text-black">
+          Pizzería <span className="text-yellow-500">Ohana</span>
         </h1>
+
         <p className="text-sm text-gray-500 mt-1">
           Crea tu cuenta y disfruta de nuestras ofertas
         </p>
@@ -119,7 +116,7 @@ function RegistrateAqui() {
                 type="text"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                placeholder="Ej: Juan Pérez"
+                placeholder="Ej: Luis González Pérez"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none transition"
                 disabled={isLoading}
                 autoComplete="name"
@@ -143,7 +140,7 @@ function RegistrateAqui() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="ejemplo@gmail.com"
+                  placeholder="ejemohana@gmail.com"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none transition"
                   disabled={isLoading}
                   autoComplete="email"

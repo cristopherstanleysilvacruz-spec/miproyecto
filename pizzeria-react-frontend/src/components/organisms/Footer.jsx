@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import {
   FaMapMarkerAlt,
   FaPhoneAlt,
-  FaEnvelope,
+  FaWhatsapp,
   FaFacebookF,
   FaInstagram,
   FaTiktok,
@@ -23,7 +23,7 @@ function Footer() {
 
           <p className="mb-2 text-gray-300 flex items-center gap-2">
             <FaMapMarkerAlt className="text-yellow-500" />
-            Jr. Ayacucho, cuadra 4
+            Jr. Ayacucho 399, Celendín, Perú.
           </p>
 
           <p className="mb-2 text-gray-300 flex items-center gap-2">
@@ -32,8 +32,15 @@ function Footer() {
           </p>
 
           <p className="mb-2 text-gray-300 flex items-center gap-2">
-            <FaEnvelope className="text-yellow-500" />
-            hola@ohanapizza.com
+            <FaWhatsapp className="text-yellow-500" />
+            <a
+              href="https://wa.me/51910151588?text=Hola%20Pizzería%20Ohana,%20quisiera%20más%20información%20sobre%20sus%20pizzas."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              WhatsApp: +51 910 151 588
+            </a>
           </p>
         </div>
 
@@ -84,7 +91,7 @@ function Footer() {
 
           <div className="flex space-x-4 text-2xl">
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/share/17kzjs83wg/"
               className="text-white hover:text-yellow-500"
               target="_blank"
               rel="noopener noreferrer"
