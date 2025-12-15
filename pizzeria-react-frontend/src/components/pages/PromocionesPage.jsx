@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../organisms/Footer";
 import { FaCheckCircle } from "react-icons/fa";
 
-/* =====================
-   Formatear tiempo
-===================== */
+/*Formatear tiempo */
 const formatearTiempo = (segundos) => {
   const h = Math.floor(segundos / 3600);
   const m = Math.floor((segundos % 3600) / 60);
@@ -12,9 +10,7 @@ const formatearTiempo = (segundos) => {
   return `${h}h ${m}m ${s}s`;
 };
 
-/* =====================
-   Card Promoción
-===================== */
+/*Card Promoción*/
 const OfertaCard = ({ promo, onAdd, selected, disabled, tiempoRestante }) => (
   <div
     className={`flex flex-col md:flex-row max-w-5xl mx-auto my-6 bg-white border-2 rounded-xl shadow-lg overflow-hidden
@@ -84,9 +80,7 @@ const OfertaCard = ({ promo, onAdd, selected, disabled, tiempoRestante }) => (
   </div>
 );
 
-/* =====================
-   Page Promociones
-===================== */
+/* Page Promociones */
 export default function PromocionesPage() {
   const [promociones, setPromociones] = useState([]);
   const [promoElegida, setPromoElegida] = useState(null);
